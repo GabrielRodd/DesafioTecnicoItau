@@ -11,8 +11,8 @@
 	<groupId>dev.gabrielroddjava</groupId>
 	<artifactId>itauJavaTeste</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>itauJavaTeste</name>
+	<description>Projeto de desafio tecnico do Itau</description>
 	<url/>
 	<licenses>
 		<license/>
