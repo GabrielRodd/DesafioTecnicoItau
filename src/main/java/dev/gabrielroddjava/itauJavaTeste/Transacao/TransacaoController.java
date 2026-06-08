@@ -1,5 +1,7 @@
 package dev.gabrielroddjava.itauJavaTeste.Transacao;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,8 +19,15 @@ public class TransacaoController {
 
     //POST - Criar Transacao
     @PostMapping("/criar")
-    public TransacaoModel criarTransacao(@RequestBody TransacaoModel novaTransacao) {
-        return transacaoService.criarTransacao(novaTransacao);
+    public ResponseEntity<Object> criarTransacao(@RequestBody TransacaoModel novaTransacao) {
+        TransacaoModel transacao = transacaoService.criarTransacao(novaTransacao);
+        if (transacao != null) {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(transacao);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                    .body("data errada ou valor negativo");
+        }
     }
 
     //GET - Mostrar Transacoes
