@@ -32,7 +32,15 @@ public class TransacaoController {
 
     //GET - Mostrar Transacoes
     @GetMapping("/mostrar")
-    public List<TransacaoModel> mostrarTransacoes() {
-        return transacaoService.mostrarTransacoes();
+    public ResponseEntity<List<TransacaoModel>> mostrarTransacoes() {
+        List<TransacaoModel> listaTransacoes = transacaoService.mostrarTransacoes();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(listaTransacoes);
+    }
+
+    @DeleteMapping("/deletar")
+    public ResponseEntity<Void> deletarTransacoes() {
+        transacaoService.deletarTransacoes();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

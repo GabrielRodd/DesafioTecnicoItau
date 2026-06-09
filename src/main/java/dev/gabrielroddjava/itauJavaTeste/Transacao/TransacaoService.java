@@ -32,4 +32,8 @@ public class TransacaoService {
         return listaTransacoes;
     }
 
+    //DELETAR - Deletar todas Transacoes
+    public void deletarTransacoes() {
+        listaTransacoes.clear();
+    }
 }
