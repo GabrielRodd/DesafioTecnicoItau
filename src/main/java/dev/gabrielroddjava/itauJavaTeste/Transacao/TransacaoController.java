@@ -38,6 +38,7 @@ public class TransacaoController {
                 .body(listaTransacoes);
     }
 
+    //DELETE - Deletar Transacoes
     @DeleteMapping("/deletar")
     public ResponseEntity<Void> deletarTransacoes() {
         transacaoService.deletarTransacoes();
