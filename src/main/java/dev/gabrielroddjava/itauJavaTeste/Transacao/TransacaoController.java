@@ -20,13 +20,11 @@ public class TransacaoController {
     //POST - Criar Transacao
     @PostMapping("/criar")
     public ResponseEntity<Object> criarTransacao(@RequestBody TransacaoDTO novaTransacao) {
-        TransacaoDTO transacao = transacaoService.criarTransacao(novaTransacao);
-        if (transacao != null) {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(transacao);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
-                    .body("data errada ou valor negativo");
+        try {
+            transacaoService.criarTransacao(novaTransacao);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (IllegalArgumentException exception) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
     }
 

@@ -12,18 +12,17 @@ public class TransacaoService {
     private List<TransacaoDTO> listaTransacoes = new ArrayList<>();
 
     //POST - Criar Transacao
-    public TransacaoDTO criarTransacao(TransacaoDTO novaTransacao) {
+    public void criarTransacao(TransacaoDTO novaTransacao) {
         if (novaTransacao.getValor() == null || novaTransacao.getDataHora() == null) {
-            return null;
+            throw new IllegalArgumentException("Erro: Valores nao podem ser nulos");
         }
         if (novaTransacao.getValor().compareTo(BigDecimal.ZERO) < 0) {
-            return null;
+            throw new IllegalArgumentException("Erro: Valor nao pode ser menor do que zero");
         }
         if (novaTransacao.getDataHora().isAfter(OffsetDateTime.now())) {
-            return null;
+            throw new IllegalArgumentException("Erro: Data nao pode estar no futuro");
         } else {
             listaTransacoes.add(novaTransacao);
-            return novaTransacao;
         }
     }
 
