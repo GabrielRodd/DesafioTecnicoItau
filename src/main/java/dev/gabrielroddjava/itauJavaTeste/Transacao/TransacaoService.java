@@ -9,10 +9,10 @@ import java.util.List;
 
 @Service
 public class TransacaoService {
-    private List<TransacaoModel> listaTransacoes = new ArrayList<>();
+    private List<TransacaoDTO> listaTransacoes = new ArrayList<>();
 
     //POST - Criar Transacao
-    public TransacaoModel criarTransacao(TransacaoModel novaTransacao) {
+    public TransacaoDTO criarTransacao(TransacaoDTO novaTransacao) {
         if (novaTransacao.getValor() == null || novaTransacao.getDataHora() == null) {
             return null;
         }
@@ -28,7 +28,7 @@ public class TransacaoService {
     }
 
     //GET - Mostrar Transacoes
-    public List<TransacaoModel> mostrarTransacoes() {
+    public List<TransacaoDTO> mostrarTransacoes() {
         return listaTransacoes;
     }
 

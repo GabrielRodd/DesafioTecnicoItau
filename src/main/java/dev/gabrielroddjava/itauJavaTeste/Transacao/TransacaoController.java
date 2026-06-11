@@ -19,8 +19,8 @@ public class TransacaoController {
 
     //POST - Criar Transacao
     @PostMapping("/criar")
-    public ResponseEntity<Object> criarTransacao(@RequestBody TransacaoModel novaTransacao) {
-        TransacaoModel transacao = transacaoService.criarTransacao(novaTransacao);
+    public ResponseEntity<Object> criarTransacao(@RequestBody TransacaoDTO novaTransacao) {
+        TransacaoDTO transacao = transacaoService.criarTransacao(novaTransacao);
         if (transacao != null) {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(transacao);
@@ -32,8 +32,8 @@ public class TransacaoController {
 
     //GET - Mostrar Transacoes
     @GetMapping("/mostrar")
-    public ResponseEntity<List<TransacaoModel>> mostrarTransacoes() {
-        List<TransacaoModel> listaTransacoes = transacaoService.mostrarTransacoes();
+    public ResponseEntity<List<TransacaoDTO>> mostrarTransacoes() {
+        List<TransacaoDTO> listaTransacoes = transacaoService.mostrarTransacoes();
         return ResponseEntity.status(HttpStatus.OK)
                 .body(listaTransacoes);
     }

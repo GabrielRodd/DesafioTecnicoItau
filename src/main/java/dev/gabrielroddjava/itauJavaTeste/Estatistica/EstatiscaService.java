@@ -1,5 +1,6 @@
 package dev.gabrielroddjava.itauJavaTeste.Estatistica;
 
+import dev.gabrielroddjava.itauJavaTeste.Transacao.TransacaoDTO;
 import dev.gabrielroddjava.itauJavaTeste.Transacao.TransacaoModel;
 import dev.gabrielroddjava.itauJavaTeste.Transacao.TransacaoService;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,8 @@ public class EstatiscaService {
         double min = Double.MAX_VALUE;
         double max = Double.MIN_VALUE;
 
-        List<TransacaoModel> listaTransacao = transacaoService.mostrarTransacoes();
-        for (TransacaoModel transacao : listaTransacao) {
+        List<TransacaoDTO> listaTransacao = transacaoService.mostrarTransacoes();
+        for (TransacaoDTO transacao : listaTransacao) {
             double valor = transacao.getValor().doubleValue();
             count += 1;
             sum += valor;
