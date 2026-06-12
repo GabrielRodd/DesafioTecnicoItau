@@ -36,6 +36,10 @@ public class EstatiscaService {
                 max = valor;
             }
         }
+        if (count == 0) {
+            min = 0;
+            max = 0;
+        }
         avg = sum / count;
         EstatisticaDTO estatisticas = new EstatisticaDTO(count, sum, avg, min, max);
         return estatisticas;
