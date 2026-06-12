@@ -18,8 +18,8 @@ public class EstatisticaController {
 
     //GET - Mostrar Estatisticas
     @GetMapping("/estatistica")
-    public ResponseEntity<EstatisticaModel> mostrarEstatisticas() {
-        EstatisticaModel estatisticaCalculada = estatiscaService.calcularEstatistica();
+    public ResponseEntity<EstatisticaDTO> mostrarEstatisticas() {
+        EstatisticaDTO estatisticaCalculada = estatiscaService.calcularEstatistica();
         return ResponseEntity.status(HttpStatus.OK)
                 .body(estatisticaCalculada);
     }

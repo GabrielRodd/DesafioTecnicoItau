@@ -17,7 +17,7 @@ public class EstatiscaService {
         this.transacaoService = transacaoService;
     }
 
-    public EstatisticaModel calcularEstatistica() {
+    public EstatisticaDTO calcularEstatistica() {
         long count = 0;
         double sum = 0.0;
         double avg = 0.0;
@@ -37,7 +37,7 @@ public class EstatiscaService {
             }
         }
         avg = sum / count;
-        EstatisticaModel estatisticas = new EstatisticaModel(count, sum, avg, min, max);
+        EstatisticaDTO estatisticas = new EstatisticaDTO(count, sum, avg, min, max);
         return estatisticas;
     }
 }
