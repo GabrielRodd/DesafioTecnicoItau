@@ -5,6 +5,7 @@ import dev.gabrielroddjava.itauJavaTeste.Transacao.TransacaoModel;
 import dev.gabrielroddjava.itauJavaTeste.Transacao.TransacaoService;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -17,7 +18,7 @@ public class EstatiscaService {
         this.transacaoService = transacaoService;
     }
 
-    public EstatisticaDTO calcularEstatistica() {
+    public EstatisticaDTO calcularEstatistica(OffsetDateTime horaAtual) {
         long count = 0;
         double sum = 0.0;
         double avg = 0.0;
@@ -26,22 +27,22 @@ public class EstatiscaService {
 
         List<TransacaoDTO> listaTransacao = transacaoService.mostrarTransacoes();
         for (TransacaoDTO transacao : listaTransacao) {
-            double valor = transacao.getValor().doubleValue();
-            count += 1;
-            sum += valor;
-            if (valor < min) {
-                min = valor;
-            }
-            if (valor > max) {
-                max = valor;
+            if (transacao.getDataHora().isAfter(horaAtual)) {
+                double valor = transacao.getValor().doubleValue();
+                count += 1;
+                sum += valor;
+                if (valor < min) {
+                    min = valor;
+                }
+                if (valor > max) {
+                    max = valor;
+                }
             }
         }
         if (count == 0) {
-            min = 0;
-            max = 0;
+            return new EstatisticaDTO(0L, 0.0, 0.0, 0.0, 0.0 );
         }
         avg = sum / count;
-        EstatisticaDTO estatisticas = new EstatisticaDTO(count, sum, avg, min, max);
-        return estatisticas;
+        return new EstatisticaDTO(count, sum, avg, min, max);
     }
 }

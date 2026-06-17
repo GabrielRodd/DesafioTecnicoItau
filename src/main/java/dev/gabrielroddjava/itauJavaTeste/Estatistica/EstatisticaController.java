@@ -6,20 +6,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.OffsetDateTime;
+
 @RestController
-@RequestMapping("/transacao")
+@RequestMapping("/estatistica")
 public class EstatisticaController {
 
     private EstatiscaService estatiscaService;
+    //private EstatisticaProperties estatisticaProperties;
 
     public EstatisticaController(EstatiscaService estatiscaService) {
         this.estatiscaService = estatiscaService;
+        //this.estatisticaProperties = estatisticaProperties;
     }
 
     //GET - Mostrar Estatisticas
-    @GetMapping("/estatistica")
+    @GetMapping
     public ResponseEntity<EstatisticaDTO> mostrarEstatisticas() {
-        EstatisticaDTO estatisticaCalculada = estatiscaService.calcularEstatistica();
+        final var horaAtual = OffsetDateTime.now().minusSeconds(60);
+        EstatisticaDTO estatisticaCalculada = estatiscaService.calcularEstatistica(horaAtual);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(estatisticaCalculada);
     }
