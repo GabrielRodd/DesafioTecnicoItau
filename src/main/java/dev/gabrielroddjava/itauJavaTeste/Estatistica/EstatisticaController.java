@@ -12,18 +12,18 @@ import java.time.OffsetDateTime;
 @RequestMapping("/estatistica")
 public class EstatisticaController {
 
-    private EstatiscaService estatiscaService;
-    //private EstatisticaProperties estatisticaProperties;
+    private final EstatiscaService estatiscaService;
+    private final EstatisticaProperties estatisticaProperties;
 
-    public EstatisticaController(EstatiscaService estatiscaService) {
+    public EstatisticaController(EstatiscaService estatiscaService, EstatisticaProperties estatisticaProperties) {
         this.estatiscaService = estatiscaService;
-        //this.estatisticaProperties = estatisticaProperties;
+        this.estatisticaProperties = estatisticaProperties;
     }
 
     //GET - Mostrar Estatisticas
     @GetMapping
     public ResponseEntity<EstatisticaDTO> mostrarEstatisticas() {
-        final var horaAtual = OffsetDateTime.now().minusSeconds(60);
+        final var horaAtual = OffsetDateTime.now().minusSeconds(estatisticaProperties.segundos());
         EstatisticaDTO estatisticaCalculada = estatiscaService.calcularEstatistica(horaAtual);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(estatisticaCalculada);
