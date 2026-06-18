@@ -19,30 +19,21 @@ public class EstatiscaService {
     }
 
     public EstatisticaDTO calcularEstatistica(OffsetDateTime horaAtual) {
-        long count = 0;
-        double sum = 0.0;
-        double avg = 0.0;
-        double min = Double.MAX_VALUE;
-        double max = Double.MIN_VALUE;
-
         List<TransacaoDTO> listaTransacao = transacaoService.mostrarTransacoes();
-        for (TransacaoDTO transacao : listaTransacao) {
-            if (transacao.getDataHora().isAfter(horaAtual)) {
-                double valor = transacao.getValor().doubleValue();
-                count += 1;
-                sum += valor;
-                if (valor < min) {
-                    min = valor;
-                }
-                if (valor > max) {
-                    max = valor;
-                }
-            }
+        final var summary = listaTransacao.stream()
+                .filter(t -> t.getDataHora().isAfter(horaAtual))
+                .mapToDouble(t -> t.getValor().doubleValue())
+                .summaryStatistics();
+
+        if (summary.getCount() == 0) {
+            return new EstatisticaDTO(0L, 0.0, 0.0, 0.0, 0.0);
         }
-        if (count == 0) {
-            return new EstatisticaDTO(0L, 0.0, 0.0, 0.0, 0.0 );
-        }
-        avg = sum / count;
-        return new EstatisticaDTO(count, sum, avg, min, max);
+
+        return new EstatisticaDTO(
+                summary.getCount(),
+                summary.getSum(),
+                summary.getAverage(),
+                summary.getMin(),
+                summary.getMax());
     }
 }
