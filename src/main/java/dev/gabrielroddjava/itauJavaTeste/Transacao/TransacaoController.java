@@ -1,5 +1,6 @@
 package dev.gabrielroddjava.itauJavaTeste.Transacao;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/transacao")
 public class TransacaoController {
@@ -21,9 +23,11 @@ public class TransacaoController {
     @PostMapping("/criar")
     public ResponseEntity<Object> criarTransacao(@RequestBody TransacaoDTO novaTransacao) {
         try {
+            log.info("Transacao realizada com sucesso");
             transacaoService.criarTransacao(novaTransacao);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (IllegalArgumentException exception) {
+            log.error("Erro em uma ou mais validacoes, tente novamente");
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
     }
